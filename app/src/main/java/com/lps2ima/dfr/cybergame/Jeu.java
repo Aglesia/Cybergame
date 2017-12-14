@@ -5,7 +5,7 @@ package com.lps2ima.dfr.cybergame;
  */
 
 /**
- * Classe "Jeu", abstraite.
+ * Classe "com.lps2ima.dfr.cybergame.Jeu", abstraite.
  * Un jeu est un ensemble de plusieurs questions (Slides) à la suite, pas forcément dans un ordre fixe.
  * A chaque réponse donnée, le jeu passe à une nouvelle question (nouvelle Slide) ou termine la partie.
  * La nouvelle Slide à afficher peut dépendre de la réponse donnée lors de la Slide précédente.
@@ -52,4 +52,10 @@ public abstract class Jeu {
             ret = this.slides[no_slide-1];
         return ret;
     }
+
+    /**
+     * Indique le nom du jeu
+     * @return Nom du jeu
+     */
+    public abstract String getNom();
 }

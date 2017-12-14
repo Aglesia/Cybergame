@@ -1,4 +1,6 @@
-package Jeu;
+package com.lps2ima.dfr.cybergame.Jeux;
+
+import android.util.Log;
 
 import com.lps2ima.dfr.cybergame.Jeu;
 import com.lps2ima.dfr.cybergame.Slide;
@@ -14,6 +16,7 @@ public class Test extends Jeu {
     @Override
     public int selectionReponse(int numero_slide, int numero_bouton) {
         int slide_suivante = 0;
+        Log.d("selectionReponse()", "Numéro de la slide : "+numero_slide+", Numéro du bouton : "+numero_bouton);
 
         // On fait un switch pour les slides particulières
         switch (numero_slide){
@@ -43,13 +46,18 @@ public class Test extends Jeu {
     public int initialiser() {
         // On crée toutes les slides
         this.slides = new Slide[5];
-        this.slides[0] = new Slide("Bienvenue dans le jeu de test, Slide 1", 2, new String[]{"Suivant", "Retour"}, 1, 1);
-        this.slides[1] = new Slide("Bienvenue dans le jeu de test, Slide 2", 2, new String[]{"Suivant", "Retour"}, 1, 1);
-        this.slides[2] = new Slide("Bienvenue dans le jeu de test, Slide 3\npeut revenir à la slide 1", 2, new String[]{"Suivant", "Retour"}, 1, 1);
-        this.slides[3] = new Slide("Bienvenue dans le jeu de test, Slide 4", 2, new String[]{"Suivant", "Retour"}, 1, 1);
-        this.slides[4] = new Slide("Bienvenue dans le jeu de test, Slide 5", 2, new String[]{"Suivant", "Retour"}, 1, 1);
+        this.slides[0] = new Slide("Bienvenue dans le jeu de test, Slide 1", 2, new String[]{"Prendre le point", "Ne pas le prendre"}, 1, 1);
+        this.slides[1] = new Slide("Bienvenue dans le jeu de test, Slide 2", 2, new String[]{"Prendre le point", "Ne pas le prendre"}, 1, 1);
+        this.slides[2] = new Slide("Bienvenue dans le jeu de test, Slide 3\npeut revenir à la slide 1", 2, new String[]{"Prendre le point", "Ne pas le prendre"}, 1, 1);
+        this.slides[3] = new Slide("Bienvenue dans le jeu de test, Slide 4", 2, new String[]{"Prendre le point", "Ne pas le prendre"}, 1, 1);
+        this.slides[4] = new Slide("Bienvenue dans le jeu de test, Slide 5", 2, new String[]{"Prendre le point", "Ne pas le prendre"}, 1, 1);
 
         // On indique de commencer à la première slide (1 et non 0 !!)
         return 1;
+    }
+
+    @Override
+    public String getNom() {
+        return "Test";
     }
 }

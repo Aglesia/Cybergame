@@ -70,14 +70,6 @@ public class Slide {
     }
 
     /**
-     * Indique l'ensemble des textes à afficher sur les boutons de choix de réponse
-     * @return Ensemble des textes à mettre sur les boutons
-     */
-    public String[] getTextesBoutons(){
-        return this.textes_boutons;
-    }
-
-    /**
      * Indique si la réponse donnée est la bonne réponse (Il peut ne pas y avoir de bonne réponse)
      * @param numero_bouton Numéro du bouton appuyé
      * @return Vrai si c'est la bonne réponse
