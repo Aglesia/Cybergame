@@ -1,7 +1,9 @@
 package com.lps2ima.dfr.cybergame.Slides;
 
+import android.graphics.drawable.Drawable;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.lps2ima.dfr.cybergame.MainActivity;
@@ -19,18 +21,21 @@ public class ChoixMultiples extends Slide {
     private int[] bonnes_reponses;
     private CheckBox[] boxes;
     private int score_mauvais;
+    private int image;
 
     /**
      * Constructeur, contient toutes les propriétés du slide
      *
      * @param texte         Texte de présentation de la Slide/la question
+     * @param image         Image à afficher, si présente
      * @param reponses      Ensemble des réponses possibles
      * @param bonnes_reponses Numéro du bouton étant la bonne réponse
      * @param score_bon       Nombre de points que la slide rapporte pour chaque bonne réponse
      * @param score_mauvais   Nombre de points que la slide retire en cas de mauvaise réponse
      */
-    public ChoixMultiples(String texte, String[] reponses, int[] bonnes_reponses, int score_bon, int score_mauvais) {
+    public ChoixMultiples(String texte, int image, String[] reponses, int[] bonnes_reponses, int score_bon, int score_mauvais) {
         super(texte, 0, score_bon);
+        this.image = image;
         this.reponses = reponses;
         this.bonnes_reponses = bonnes_reponses;
         this.boxes = new CheckBox[reponses.length];
@@ -39,6 +44,13 @@ public class ChoixMultiples extends Slide {
 
     @Override
     public void afficher(LinearLayout layout, MainActivity activite) {
+        // On affiche l'image
+        if(this.image != 0){
+            ImageView img = new ImageView(activite);
+            img.setImageResource(image);
+            layout.addView(img);
+        }
+        
         // On ajoute les checkboxes
         for(int i=0; i<this.boxes.length; i++){
             boxes[i] = new CheckBox(activite);

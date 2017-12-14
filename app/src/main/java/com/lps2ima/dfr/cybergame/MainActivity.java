@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
     private int ecran_actuel = ECRAN_TITRE; // Ecran titre
     private Jeu jeu = null;
     private Slide slide_titre = null;
-    private Slide slide_score = new ChoixSimple("Pour le jeu \"Test\", vous avez obtenu 0 points.", new String[]{"Revenir à l'accueil"}, 0, 0);
+    private Slide slide_score = new ChoixSimple("Pour le jeu \"Test\", vous avez obtenu 0 points.", R.drawable.icone, new String[]{"Revenir à l'accueil"}, 0, 0);
 
     // Etats de l'application
     @Override

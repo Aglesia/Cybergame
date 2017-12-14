@@ -1,10 +1,12 @@
 package com.lps2ima.dfr.cybergame.Slides;
 
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lps2ima.dfr.cybergame.MainActivity;
+import com.lps2ima.dfr.cybergame.R;
 import com.lps2ima.dfr.cybergame.Slide;
 
 /**
@@ -26,11 +28,17 @@ public class Titre extends Slide {
 
     @Override
     public void afficher(LinearLayout layout, MainActivity activity) {
-        Log.d("sqsd", this.noms.length+"");
+        // On affiche l'image
+        ImageView img = new ImageView(activity);
+        img.setImageResource(R.drawable.icone);
+        layout.addView(img);
+
+        // On affiche la liste des jeux
         for(int i=0; i<this.noms.length; i++)
             layout.addView(this.creerBouton(activity, this.noms[i], i+1));
         layout.addView(this.creerBouton(activity, "Quitter", 0));
 
+        // On affiche les remerciements
         TextView texte = new TextView(activity);
         texte.setText(MESSAGE_REMERCIEMENT);
         layout.addView(texte);
