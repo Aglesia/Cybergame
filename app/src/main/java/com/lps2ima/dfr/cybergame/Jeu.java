@@ -4,6 +4,8 @@ package com.lps2ima.dfr.cybergame;
  * Created by dorian on 13/12/17.
  */
 
+import com.lps2ima.dfr.cybergame.Slides.Void;
+
 /**
  * Classe "com.lps2ima.dfr.cybergame.Jeu", abstraite.
  * Un jeu est un ensemble de plusieurs questions (Slides) à la suite, pas forcément dans un ordre fixe.
@@ -47,7 +49,7 @@ public abstract class Jeu {
      * @return Slide demandée
      */
     public Slide getSlide(int no_slide){
-        Slide ret = new Slide("Slide inexistante", 0, new String[0], 0, 0);
+        Slide ret = new Void(); // Slide vide
         if(no_slide <= this.slides.length && no_slide>0)
             ret = this.slides[no_slide-1];
         return ret;

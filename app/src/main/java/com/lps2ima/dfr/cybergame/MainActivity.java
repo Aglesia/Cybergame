@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.lps2ima.dfr.cybergame.Jeux.*;
+import com.lps2ima.dfr.cybergame.Slides.ChoixSimple;
+import com.lps2ima.dfr.cybergame.Slides.Titre;
 
 /**
  * Classe principale, lance et coordonne l'application
@@ -20,13 +22,12 @@ public class MainActivity extends Activity {
     public static final int ECRAN_JEU = 2; // DOIT ETRE LA DERNIERE VALEUR (LA PLUS GRANDE) DES CONSTANTES D'ECRAN
 
     public static final Jeu[] LISTE_JEUX = new Jeu[]{new Test()}; // Ensemble de tous les jeux à charger
-    private static final String MESSAGE_REMERCIEMENT = "Merci";
 
     // Attributs
     private int ecran_actuel = ECRAN_TITRE; // Ecran titre
     private Jeu jeu = null;
     private Slide slide_titre = null;
-    private Slide slide_score = new Slide("Pour le jeu \"Test\", vous avez obtenu 0 points.", 1, new String[]{"Revenir à l'accueil"}, 0, 0);
+    private Slide slide_score = new ChoixSimple("Pour le jeu \"Test\", vous avez obtenu 0 points.", new String[]{"Revenir à l'accueil"}, 0, 0);
 
     // Etats de l'application
     @Override
@@ -35,13 +36,12 @@ public class MainActivity extends Activity {
         setContentView(R.layout.slide);
 
         // On crée la liste des noms de jeu
-        String[] noms = new String[LISTE_JEUX.length+1];
+        String[] noms = new String[LISTE_JEUX.length];
         for(int i=0; i<LISTE_JEUX.length; i++)
             noms[i] = LISTE_JEUX[i].getNom();
-        noms[LISTE_JEUX.length] = "Quitter";
 
         // On crée la slide d'écran titre
-        slide_titre = new Slide("Sélectionnez votre jeu", LISTE_JEUX.length+1, noms, 0, 0);
+        slide_titre = new Titre(noms);
 
         this.afficherEcranTitre();
     }
@@ -72,7 +72,7 @@ public class MainActivity extends Activity {
             this.jeu = null;
             this.afficherEcranTitre();
         }
-        // SI on demande à quitter
+        // S on demande à quitter
         else if(no_bouton>LISTE_JEUX.length || no_bouton<=0) {
             Log.d("appuieBouton()", "Fin du game !");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -93,7 +93,7 @@ public class MainActivity extends Activity {
      */
     private void afficherSlide(Slide s){
         // Si la partie est finie, on passe à l'écran des scores
-        if(s.getNbBoutons() <= 0){
+        if(s.type()){
             Log.d("afficherSlide()", "Affichage de la Slide des scores");
             this.ecran_actuel = ECRAN_SCORE;
             afficherScore(this.jeu);
@@ -114,9 +114,8 @@ public class MainActivity extends Activity {
                 titre.setText(R.string.app_name);
             texte.setText(s.getTexteSlide());
 
-            // On ajoute les boutons
-            for(int i=1; i<=s.getNbBoutons(); i++)
-                layout_secondaire.addView(this.creerBouton(s.getTexteBouton(i), i));
+            // On ajoute les éléments
+            s.afficher(layout_secondaire, this);
         }
     }
 
@@ -141,12 +140,6 @@ public class MainActivity extends Activity {
         this.afficherSlide(this.slide_titre);
         this.ecran_actuel = ECRAN_TITRE;
         this.jeu = null;
-
-        // On ajoute les remerciements en bas de la page
-        LinearLayout layout = this.findViewById(R.id.layout_secondaire);
-        TextView texte = new TextView(this);
-        texte.setText(MESSAGE_REMERCIEMENT);
-        layout.addView(texte);
     }
 
     /**
@@ -174,28 +167,6 @@ public class MainActivity extends Activity {
             this.afficherEcranTitre();
             this.ecran_actuel = ECRAN_TITRE;
         }
-    }
-
-    /**
-     * Crée un nouveau bouton, lui assigne le texte et son numéro de réponse, ainsi que son listener
-     * @param texte Texte à afficher sur le bouton
-     * @param numero Numéro de réponse correspondant
-     * @return Le bouton fraichement créé
-     */
-    private Button creerBouton(String texte, int numero){
-        // On crée le bouton avec son nom
-        final Button bt = new Button(this);
-        bt.setText(texte);
-        bt.setContentDescription(String.valueOf(numero));
-
-        // On ajoute le listener
-        bt.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                MainActivity.this.appuieBouton(bt);
-            }
-        });
-
-        return bt;
     }
 
     /**
