@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.lps2ima.dfr.cybergame.Jeux.*;
 import com.lps2ima.dfr.cybergame.Slides.ChoixSimple;
 import com.lps2ima.dfr.cybergame.Slides.Titre;
+import com.lps2ima.dfr.cybergame.Slides.TitreImage;
 
 /**
  * Classe principale, lance et coordonne l'application
@@ -39,9 +40,12 @@ public class MainActivity extends Activity {
         String[] noms = new String[LISTE_JEUX.length];
         for(int i=0; i<LISTE_JEUX.length; i++)
             noms[i] = LISTE_JEUX[i].getNom();
+        int[] images = new int[LISTE_JEUX.length];
+        for(int i=0; i<LISTE_JEUX.length; i++)
+            images[i] = LISTE_JEUX[i].getImageId();
 
         // On crée la slide d'écran titre
-        slide_titre = new Titre(noms);
+        slide_titre = new TitreImage(noms, images);
 
         this.afficherEcranTitre();
     }
@@ -175,7 +179,7 @@ public class MainActivity extends Activity {
      * @return Numéro du bouton, ou 0 s'il n'en a pas
      */
     private int numeroBouton(View v){
-        String desc = ((Button)v).getContentDescription().toString();
+        String desc = v.getContentDescription().toString();
         int ret = 0;
         // On récupère le numéro du bouton via sa description
         if(android.text.TextUtils.isDigitsOnly(desc))

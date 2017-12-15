@@ -53,7 +53,7 @@ public class Test extends Jeu {
     public int initialiser() {
         // On crée toutes les slides
         this.slides = new Slide[5];
-        this.slides[0] = new ChoixSimple("Bienvenue dans le jeu de test, Slide 1", R.drawable.icone, new String[]{"Prendre le point", "Ne pas le prendre"}, 1, 1);
+        this.slides[0] = new ChoixSimple("Bienvenue dans le jeu de test, Slide 1", R.drawable.test, new String[]{"Prendre le point", "Ne pas le prendre"}, 1, 1);
         this.slides[1] = new ChoixSimple("Bienvenue dans le jeu de test, Slide 2", 0, new String[]{"Prendre le point", "Ne pas le prendre"}, 1, 1);
         this.slides[2] = new ChoixSimple("Bienvenue dans le jeu de test, Slide 3\npeut revenir à la slide 1", 0, new String[]{"Prendre le point", "Ne pas le prendre"}, 1, 1);
         this.slides[3] = new ChoixMultiples("Bienvenue dans le jeu de test, Slide 4\nQCM, répondez bien !", 0, new String[]{"Prendre le point", "Ne pas le prendre", "Luke meurt", "Nan c'est faux, c'est Leia"}, new int[]{1, 3}, 2, 1);
@@ -66,5 +66,10 @@ public class Test extends Jeu {
     @Override
     public String getNom() {
         return "Test";
+    }
+
+    @Override
+    public int getImageId() {
+        return R.drawable.test;
     }
 }

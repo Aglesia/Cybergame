@@ -42,6 +42,7 @@ public class MotsClefs extends Slide {
         if(this.image != 0){
             ImageView img = new ImageView(activite);
             img.setImageResource(image);
+            img.setAdjustViewBounds(true);
             layout.addView(img);
         }
 

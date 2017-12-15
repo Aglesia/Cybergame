@@ -60,4 +60,10 @@ public abstract class Jeu {
      * @return Nom du jeu
      */
     public abstract String getNom();
+
+    /**
+     * Indique l'ID de la ressource à utiliser en tant qu'image
+     * @return image du jeu sous forme d'ID ressource (R.drawable.[image])
+     */
+    public abstract int getImageId();
 }
