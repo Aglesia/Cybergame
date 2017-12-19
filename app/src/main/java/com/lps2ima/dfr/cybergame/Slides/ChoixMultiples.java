@@ -1,7 +1,7 @@
 package com.lps2ima.dfr.cybergame.Slides;
 
-import android.graphics.drawable.Drawable;
-import android.widget.Button;
+import android.support.v4.content.res.TypedArrayUtils;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,8 +18,9 @@ import java.util.stream.IntStream;
 
 public class ChoixMultiples extends Slide {
     private String[] reponses;
-    private int[] bonnes_reponses;
+    private Integer[] bonnes_reponses;
     private CheckBox[] boxes;
+    private int score_bon;
     private int score_mauvais;
     private int image;
 
@@ -33,12 +34,13 @@ public class ChoixMultiples extends Slide {
      * @param score_bon       Nombre de points que la slide rapporte pour chaque bonne réponse
      * @param score_mauvais   Nombre de points que la slide retire en cas de mauvaise réponse
      */
-    public ChoixMultiples(String texte, int image, String[] reponses, int[] bonnes_reponses, int score_bon, int score_mauvais) {
-        super(texte, 0, score_bon);
+    public ChoixMultiples(String texte, int image, String[] reponses, Integer[] bonnes_reponses, int score_bon, int score_mauvais) {
+        super(texte);
         this.image = image;
         this.reponses = reponses;
         this.bonnes_reponses = bonnes_reponses;
         this.boxes = new CheckBox[reponses.length];
+        this.score_bon = score_bon;
         this.score_mauvais = score_mauvais;
     }
 
@@ -54,9 +56,7 @@ public class ChoixMultiples extends Slide {
         
         // On ajoute les checkboxes
         for(int i=0; i<this.boxes.length; i++){
-            boxes[i] = new CheckBox(activite);
-            boxes[i].setText(reponses[i]);
-            boxes[i].setChecked(false);
+            boxes[i] = super.creerCaseCocher(activite, reponses[i]);
             layout.addView(boxes[i]);
         }
 
@@ -78,8 +78,8 @@ public class ChoixMultiples extends Slide {
             // S'il est coché
             if(this.boxes[i].isChecked()){
                 // Si c'est bon, on gagne 1 point
-                if(Arrays.asList(this.reponses).contains(""+(i+1)))
-                    pts += super.getScore();
+                if(Arrays.asList(this.bonnes_reponses).contains(i+1))
+                    pts += this.score_bon;
                 else
                     pts -= this.score_mauvais;
             }

@@ -24,8 +24,18 @@ public class Titre extends Slide {
      * @param noms Noms des catégories possibles
      */
     public Titre(String[] noms) {
-        super("Bienvenue, choisissez une catégorie", 0, 0);
+        super("Bienvenue, choisissez une catégorie");
         this.noms = noms;
+    }
+
+    @Override
+    public boolean isBonneReponse(int numero_bouton) {
+        return false;
+    }
+
+    @Override
+    public int getScore() {
+        return 0;
     }
 
     @Override

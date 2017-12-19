@@ -15,6 +15,8 @@ import com.lps2ima.dfr.cybergame.Slide;
 public class ChoixSimple extends Slide {
     private String[] textes_boutons;
     private int image;
+    private int bonne_reponse;
+    private int score;
 
     /**
      * Constructeur, contient toutes les propriétés du slide
@@ -26,9 +28,28 @@ public class ChoixSimple extends Slide {
      * @param score         Nombre de points que la slide rapporte en cas de bonne réponse
      */
     public ChoixSimple(String texte, int image, String[] textes_boutons, int bonne_reponse, int score) {
-        super(texte, bonne_reponse, score);
+        super(texte);
         this.textes_boutons = textes_boutons;
         this.image = image;
+        this.bonne_reponse = bonne_reponse;
+        this.score = score;
+    }
+
+    /**
+     * Indique si la réponse donnée est la bonne réponse (Il peut ne pas y avoir de bonne réponse)
+     * @param numero_bouton Numéro du bouton appuyé
+     * @return Vrai si c'est la bonne réponse
+     */
+    public boolean isBonneReponse(int numero_bouton){
+        return (this.bonne_reponse == numero_bouton);
+    }
+
+    /**
+     * Indique le nombre de points de cette question
+     * @return Score de la slide
+     */
+    public int getScore(){
+        return this.score;
     }
 
     @Override

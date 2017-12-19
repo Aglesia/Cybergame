@@ -14,12 +14,22 @@ public class Void extends Slide {
      * Constructeur, contient toutes les propriétés du slide
      */
     public Void() {
-        super("", 0, 0);
+        super("");
     }
 
     @Override
     public void afficher(LinearLayout layout, MainActivity activity) {
 
+    }
+
+    @Override
+    public boolean isBonneReponse(int numero_bouton) {
+        return false;
+    }
+
+    @Override
+    public int getScore() {
+        return 0;
     }
 
     @Override

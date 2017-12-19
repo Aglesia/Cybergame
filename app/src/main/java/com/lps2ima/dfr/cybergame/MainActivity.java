@@ -5,13 +5,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.lps2ima.dfr.cybergame.Jeux.*;
-import com.lps2ima.dfr.cybergame.Slides.ChoixSimple;
-import com.lps2ima.dfr.cybergame.Slides.Titre;
-import com.lps2ima.dfr.cybergame.Slides.TitreImage;
+import com.lps2ima.dfr.cybergame.Slides.*;
 
 /**
  * Classe principale, lance et coordonne l'application
@@ -22,7 +21,7 @@ public class MainActivity extends Activity {
     public static final int ECRAN_SCORE = 1;
     public static final int ECRAN_JEU = 2; // DOIT ETRE LA DERNIERE VALEUR (LA PLUS GRANDE) DES CONSTANTES D'ECRAN
 
-    public static final Jeu[] LISTE_JEUX = new Jeu[]{new Test()}; // Ensemble de tous les jeux à charger
+    public static Jeu[] LISTE_JEUX = null; // Ensemble de tous les jeux à charger
 
     // Attributs
     private int ecran_actuel = ECRAN_TITRE; // Ecran titre
@@ -35,6 +34,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slide);
+
+        LISTE_JEUX = new Jeu[]{new Test(this)};
 
         // On crée la liste des noms de jeu
         String[] noms = new String[LISTE_JEUX.length];
@@ -62,6 +63,7 @@ public class MainActivity extends Activity {
         if(this.ecran_actuel >= ECRAN_JEU && this.jeu != null) {
             // On traite la réponse donnée par l'utilisateur
             int slide_suivante = this.jeu.selectionReponse(this.ecran_actuel-ECRAN_JEU, no_bouton);
+            Log.d("appuieBouton()", "Nouveau score : "+this.jeu.getScore());
             Log.d("appuieBouton()", "Nouvelle Slide : "+slide_suivante);
 
             // On affiche la slide suivante
@@ -133,6 +135,11 @@ public class MainActivity extends Activity {
         this.afficherSlide(this.slide_score);
         TextView texte = this.findViewById(R.id.texte);
         texte.setText("Pour le jeu \""+j.getNom()+"\", vous avez obtenu "+j.getScore()+" points.");
+
+        // On remplie la barre de progression
+        ProgressBar progression = this.findViewById(R.id.barre_progression);
+        progression.setMax(1);
+        progression.setProgress(1);
     }
 
     /**
@@ -144,6 +151,11 @@ public class MainActivity extends Activity {
         this.afficherSlide(this.slide_titre);
         this.ecran_actuel = ECRAN_TITRE;
         this.jeu = null;
+
+        // On vide la barre de progression
+        ProgressBar progression = this.findViewById(R.id.barre_progression);
+        progression.setMax(1);
+        progression.setProgress(0);
     }
 
     /**
@@ -158,8 +170,10 @@ public class MainActivity extends Activity {
             int s = jeu.initialiser();
             Log.d("chargerJeu()", "Slide à afficher : "+s);
             // On charge la slide s'il y en a une
-            if(s > 0)
+            if(s > 0) {
                 this.afficherSlide(jeu.getSlide(s));
+                jeu.setBarreProgression(s);
+            }
             // Sinon on retourne à l'écran titre
             else {
                 this.afficherEcranTitre();

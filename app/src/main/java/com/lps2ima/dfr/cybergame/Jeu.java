@@ -4,6 +4,11 @@ package com.lps2ima.dfr.cybergame;
  * Created by dorian on 13/12/17.
  */
 
+import android.app.Activity;
+import android.content.Context;
+import android.view.View;
+import android.widget.ProgressBar;
+
 import com.lps2ima.dfr.cybergame.Slides.Void;
 
 /**
@@ -20,6 +25,12 @@ import com.lps2ima.dfr.cybergame.Slides.Void;
 public abstract class Jeu {
     protected Slide[] slides = new Slide[0]; // Slides de la partie
     protected int score_joueur = 0; // Score actuel du joueur
+    protected Activity context; // Main Activity
+
+    public Jeu(Context context){
+        this.context = (Activity)context;
+        this.score_joueur = 0;
+    }
 
     /**
      * Récupère l'action de l'utilisateur, la traite, et indique l'écran suivant à afficher
@@ -41,6 +52,16 @@ public abstract class Jeu {
      */
     public int getScore(){
         return this.score_joueur;
+    }
+
+    /**
+     * Indique à l'utilisateur l'avancement du jeu, via une barre de progression
+     * @param valeur valeur actuelle, entre 0 et NB_SLIDES
+     */
+    public void setBarreProgression(int valeur){
+        ProgressBar progression = this.context.findViewById(R.id.barre_progression);
+        progression.setMax(this.slides.length);
+        progression.setProgress(valeur);
     }
 
     /**
@@ -66,4 +87,11 @@ public abstract class Jeu {
      * @return image du jeu sous forme d'ID ressource (R.drawable.[image])
      */
     public abstract int getImageId();
+
+    /**
+     * Affiche le résumé de toutes les réponses données, ainsi que les corrections
+     * C'est au créateur de la sous-classe de modéliser cette partie
+     * @return La liste des vues (de haut en bas) à afficher sur l'écran des scores
+     */
+    public abstract View[] getResumeReponses();
 }

@@ -6,13 +6,12 @@ package com.lps2ima.dfr.cybergame;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
 /**
  * Classe "Slide", contient :
  *  - Une question
- *  - Un ensemble de réponses possibles
- *  - Une explication à afficher si besoin
  *
  * Une slide correspond à une question/épreuve d'une partie.
  * Chaque slide rapporte un certain nombre de points en cas de bonne réponse, 0 en cas de mauvaise réponse.
@@ -20,21 +19,13 @@ import android.widget.LinearLayout;
  */
 public abstract class Slide {
     private String texte_slide = ""; // Texte à afficher sur la slide
-    private int bonne_reponse = 0; // Numéro du bouton correct (de 1 à nb_boutons) ou 0 si impasse
-    private int score = 0; // Nombre de points que rapporte la slide
 
     /**
      * Constructeur, contient toutes les propriétés du slide
      * @param texte Texte de présentation de la Slide/la question
-     * @param bonne_reponse Numéro du bouton étant la bonne réponse
-     * @param score Nombre de points que la slide rapporte en cas de bonne réponse
      */
-    public Slide(String texte,
-                 int bonne_reponse,
-                 int score){
+    public Slide(String texte){
         this.texte_slide = texte;
-        this.bonne_reponse = bonne_reponse;
-        this.score = score;
     }
 
     /**
@@ -50,17 +41,13 @@ public abstract class Slide {
      * @param numero_bouton Numéro du bouton appuyé
      * @return Vrai si c'est la bonne réponse
      */
-    public boolean isBonneReponse(int numero_bouton){
-        return (this.bonne_reponse == numero_bouton);
-    }
+    public abstract boolean isBonneReponse(int numero_bouton);
 
     /**
      * Indique le nombre de points de cette question
      * @return Score de la slide
      */
-    public int getScore(){
-        return this.score;
-    }
+    public abstract int getScore();
 
     /**
      * Indique si c'est une slide spécifique (Void)
@@ -90,6 +77,20 @@ public abstract class Slide {
         });
 
         return bt;
+    }
+
+    /**
+     * Crée un nouveau bouton, lui assigne le texte et son numéro de réponse, ainsi que son listener
+     * @param texte Texte à afficher sur le bouton
+     * @return Le bouton fraichement créé
+     */
+    protected CheckBox creerCaseCocher(final MainActivity activite, String texte){
+        // On crée le checkbox avec son nom
+        final CheckBox ck = new CheckBox(activite);
+        ck.setText(texte);
+        ck.setChecked(false);
+
+        return ck;
     }
 
     /**
