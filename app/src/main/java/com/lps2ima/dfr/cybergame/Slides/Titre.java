@@ -1,13 +1,10 @@
 package com.lps2ima.dfr.cybergame.Slides;
 
-import android.util.Log;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
 import com.lps2ima.dfr.cybergame.MainActivity;
-import com.lps2ima.dfr.cybergame.R;
 import com.lps2ima.dfr.cybergame.Slide;
 
 /**

@@ -1,8 +1,6 @@
 package com.lps2ima.dfr.cybergame.Slides;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;

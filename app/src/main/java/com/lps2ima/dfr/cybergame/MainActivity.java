@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
             this.jeu = null;
             this.afficherEcranTitre();
         }
-        // S on demande à quitter
+        // Si on demande à quitter
         else if(no_bouton>LISTE_JEUX.length || no_bouton<=0) {
             Log.d("appuieBouton()", "Fin du game !");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)

@@ -83,7 +83,7 @@ public abstract class Jeu {
             this.score_joueur += score;
             t = new TextView(this.context);
             t.setText("Vous avez remporté "+score+" point(s).");
-            t.setTextColor(Color.rgb(0, 70, 0));
+            t.setTextColor(Color.rgb(0, 100, 0));
             this.views.add(t);
         }
         // Si on a perdu
@@ -91,7 +91,7 @@ public abstract class Jeu {
             this.score_joueur -= score;
             t = new TextView(this.context);
             t.setText("Vous avez perdu "+(score*-1)+" point(s).");
-            t.setTextColor(Color.rgb(70, 0, 0));
+            t.setTextColor(Color.rgb(100, 0, 0));
             this.views.add(t);
         }
 

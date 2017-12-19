@@ -1,6 +1,5 @@
 package com.lps2ima.dfr.cybergame.Slides;
 
-import android.graphics.drawable.Drawable;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -61,11 +60,10 @@ public class MotsClefs extends Slide {
     @Override
     public int choixReponse(int numero_bouton, MainActivity activite) {
         String t = this.zone_rendu.getText().toString().toUpperCase();
-        String[] entree_user = t.split(" ");
         int ret = 0;
 
         for(String motClef : this.bonnes_reponses)
-            if(Arrays.asList(entree_user).contains(motClef.toUpperCase()))
+            if(t.contains(motClef.toUpperCase()))
                 ret = this.score;
 
         return ret;

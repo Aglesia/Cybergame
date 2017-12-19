@@ -1,7 +1,5 @@
 package com.lps2ima.dfr.cybergame.Slides;
 
-import android.support.v4.content.res.TypedArrayUtils;
-import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,7 +8,6 @@ import com.lps2ima.dfr.cybergame.MainActivity;
 import com.lps2ima.dfr.cybergame.Slide;
 
 import java.util.Arrays;
-import java.util.stream.IntStream;
 
 /**
  * Created by Dorian on 14/12/2017.
