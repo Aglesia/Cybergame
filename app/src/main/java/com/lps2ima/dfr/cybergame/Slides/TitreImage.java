@@ -57,12 +57,6 @@ public class TitreImage extends Titre {
         s.setMinimumHeight(128);
         layout.addView(s);
 
-        // On affiche l'image
-        ImageView img = new ImageView(activity);
-        img.setImageResource(R.drawable.icone);
-        img.setAdjustViewBounds(true);
-        layout.addView(img);
-
         s = new Space(activity);
         s.setMinimumHeight(256);
         layout.addView(s);

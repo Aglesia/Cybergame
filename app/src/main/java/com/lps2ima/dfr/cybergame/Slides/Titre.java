@@ -29,22 +29,12 @@ public class Titre extends Slide {
     }
 
     @Override
-    public boolean isBonneReponse(int numero_bouton) {
-        return false;
-    }
-
-    @Override
-    public int getScore() {
+    public int choixReponse(int numero_bouton, MainActivity activity) {
         return 0;
     }
 
     @Override
     public void afficher(LinearLayout layout, MainActivity activity) {
-        // On affiche l'image
-        ImageView img = new ImageView(activity);
-        img.setImageResource(R.drawable.icone);
-        layout.addView(img);
-
         // On affiche la liste des jeux
         for(int i=0; i<this.noms.length; i++)
             layout.addView(this.creerBouton(activity, this.noms[i], i+1));

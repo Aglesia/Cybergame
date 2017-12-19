@@ -4,10 +4,19 @@ package com.lps2ima.dfr.cybergame;
  * Created by dorian on 14/12/17.
  */
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Classe "Slide", contient :
@@ -19,6 +28,8 @@ import android.widget.LinearLayout;
  */
 public abstract class Slide {
     private String texte_slide = ""; // Texte à afficher sur la slide
+    protected ArrayList<View> reponses_view = new ArrayList<>();
+    protected int score = 0;
 
     /**
      * Constructeur, contient toutes les propriétés du slide
@@ -37,17 +48,20 @@ public abstract class Slide {
     }
 
     /**
-     * Indique si la réponse donnée est la bonne réponse (Il peut ne pas y avoir de bonne réponse)
+     * Indique le numéro de bouton qui a été choisi. En retour, donne le nombre de points que cette réponse donne
      * @param numero_bouton Numéro du bouton appuyé
-     * @return Vrai si c'est la bonne réponse
+     * @param activity MainActivity, pour créer les views
+     * @return Le nombre de points remportés
      */
-    public abstract boolean isBonneReponse(int numero_bouton);
+    public abstract int choixReponse(int numero_bouton, MainActivity activity);
 
     /**
-     * Indique le nombre de points de cette question
-     * @return Score de la slide
+     * Indique le nombre maximum de points que cette slide peut fournir
+     * @return Score maximum
      */
-    public abstract int getScore();
+    public int maxPoints(){
+        return this.score;
+    }
 
     /**
      * Indique si c'est une slide spécifique (Void)
@@ -63,7 +77,7 @@ public abstract class Slide {
      * @param numero Numéro de réponse correspondant
      * @return Le bouton fraichement créé
      */
-    protected Button creerBouton(final MainActivity activite, String texte, int numero){
+    public static Button creerBouton(final MainActivity activite, String texte, int numero){
         // On crée le bouton avec son nom
         final Button bt = new Button(activite);
         bt.setText(texte);
@@ -84,7 +98,7 @@ public abstract class Slide {
      * @param texte Texte à afficher sur le bouton
      * @return Le bouton fraichement créé
      */
-    protected CheckBox creerCaseCocher(final MainActivity activite, String texte){
+    public static CheckBox creerCaseCocher(final MainActivity activite, String texte){
         // On crée le checkbox avec son nom
         final CheckBox ck = new CheckBox(activite);
         ck.setText(texte);
@@ -99,4 +113,38 @@ public abstract class Slide {
      * @param activite Activité principale, utile pour l'accès à l'affichage
      */
     public abstract void afficher(LinearLayout layout, MainActivity activite);
+
+    /**
+     * Enregistre toutes les vues dans un autre layout, pour les afficher dans l'écran de réponse
+     * @param layout linearLayout dans lequel enregistrer les réponses
+     * @param context MainActivity pour créer de nouvelles vues
+     */
+    public void afficherReponse(LinearLayout layout, Context context) {
+        layout.setOrientation(LinearLayout.VERTICAL);
+        for(View v : this.reponses_view){
+            // Selon le type de la vue
+            if(v instanceof CheckBox){
+                TextView t = new TextView(context);
+                t.setText(((CheckBox) v).getText());
+                if(((CheckBox)v).isChecked()) {
+                    t.setPaintFlags(Paint.FAKE_BOLD_TEXT_FLAG);
+                    if(v.getContentDescription() == "valide")
+                        t.setTextColor(Color.GREEN);
+                    else
+                        t.setTextColor(Color.RED);
+                }
+                else if(v.getContentDescription() == "valide")
+                    t.setTextColor(Color.rgb(0, 150, 0));
+                layout.addView(t);
+            }
+            else if(v instanceof EditText){
+                TextView t = new TextView(context);
+                t.setText("Vous avez écrit \""+((EditText) v).getText()+"\"");
+                layout.addView(t);
+            }
+            else if(v instanceof TextView){
+                layout.addView(v);
+            }
+        }
+    }
 }

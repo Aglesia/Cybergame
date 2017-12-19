@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
     private int ecran_actuel = ECRAN_TITRE; // Ecran titre
     private Jeu jeu = null;
     private Slide slide_titre = null;
-    private Slide slide_score = new ChoixSimple("Pour le jeu \"Test\", vous avez obtenu 0 points.", R.drawable.icone, new String[]{"Revenir à l'accueil"}, 0, 0);
+    private Slide slide_score = new ChoixSimple("Pour le jeu \"Test\", vous avez obtenu 0 points.", 0, new String[0], 0, 0);
 
     // Etats de l'application
     @Override
@@ -134,7 +134,14 @@ public class MainActivity extends Activity {
         this.ecran_actuel = ECRAN_SCORE;
         this.afficherSlide(this.slide_score);
         TextView texte = this.findViewById(R.id.texte);
-        texte.setText("Pour le jeu \""+j.getNom()+"\", vous avez obtenu "+j.getScore()+" points.");
+        if(j != null)
+            texte.setText("Vous avez remporté "+j.getScore()+" points.");
+        LinearLayout layout = this.findViewById(R.id.layout_secondaire);
+        layout.removeAllViews();
+        if(j != null)
+            for(View v : j.getResumeReponses())
+                layout.addView(v);
+        layout.addView(Slide.creerBouton(this, "Retourner à l'accueil", 1));
 
         // On remplie la barre de progression
         ProgressBar progression = this.findViewById(R.id.barre_progression);

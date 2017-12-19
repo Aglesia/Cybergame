@@ -22,7 +22,6 @@ import java.util.Arrays;
 public class MotsClefs extends Slide {
     private int image;
     private String[] bonnes_reponses;
-    private int score;
     private EditText zone_rendu = null;
 
     /**
@@ -53,28 +52,21 @@ public class MotsClefs extends Slide {
         // On affiche la zone de rendu
         this.zone_rendu = new EditText(activite);
         layout.addView(this.zone_rendu);
+        this.reponses_view.add(this.zone_rendu);
 
         // On ajoute le bouton valider
-        layout.addView(this.creerBouton(activite, "Valider", 1));
-    }
-
-    /**
-     * Indique le nombre de points de cette question
-     * @return Score de la slide
-     */
-    public int getScore(){
-        return this.score;
+        layout.addView(Slide.creerBouton(activite, "Valider", 1));
     }
 
     @Override
-    public boolean isBonneReponse(int numero_bouton) {
+    public int choixReponse(int numero_bouton, MainActivity activite) {
         String t = this.zone_rendu.getText().toString().toUpperCase();
         String[] entree_user = t.split(" ");
-        boolean ret = false;
+        int ret = 0;
 
         for(String motClef : this.bonnes_reponses)
             if(Arrays.asList(entree_user).contains(motClef.toUpperCase()))
-                ret = true;
+                ret = this.score;
 
         return ret;
     }

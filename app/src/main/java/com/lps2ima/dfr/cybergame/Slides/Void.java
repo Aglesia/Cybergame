@@ -23,12 +23,7 @@ public class Void extends Slide {
     }
 
     @Override
-    public boolean isBonneReponse(int numero_bouton) {
-        return false;
-    }
-
-    @Override
-    public int getScore() {
+    public int choixReponse(int numero_bouton, MainActivity activity) {
         return 0;
     }
 

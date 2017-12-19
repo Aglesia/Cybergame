@@ -42,6 +42,7 @@ public class ChoixMultiples extends Slide {
         this.boxes = new CheckBox[reponses.length];
         this.score_bon = score_bon;
         this.score_mauvais = score_mauvais;
+        this.score = score_bon * bonnes_reponses.length;
     }
 
     @Override
@@ -56,21 +57,19 @@ public class ChoixMultiples extends Slide {
         
         // On ajoute les checkboxes
         for(int i=0; i<this.boxes.length; i++){
-            boxes[i] = super.creerCaseCocher(activite, reponses[i]);
+            boxes[i] = Slide.creerCaseCocher(activite, reponses[i]);
+            if(Arrays.asList(this.bonnes_reponses).contains(i+1))
+                boxes[i].setContentDescription("valide");
             layout.addView(boxes[i]);
+            this.reponses_view.add(boxes[i]);
         }
 
         // On ajoute le bouton valider
-        layout.addView(this.creerBouton(activite, "Valider", 1));
+        layout.addView(Slide.creerBouton(activite, "Valider", 1));
     }
 
     @Override
-    public boolean isBonneReponse(int numero_bouton){
-        return true;
-    }
-
-    @Override
-    public int getScore() {
+    public int choixReponse(int numero_bouton, MainActivity activite) {
         int pts = 0;
 
         // Selon les réponses données par l'utilisateur, on calcul le nombre de points
