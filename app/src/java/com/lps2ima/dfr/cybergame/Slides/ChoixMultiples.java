@@ -1,5 +1,7 @@
 package com.lps2ima.dfr.cybergame.Slides;
 
+import android.graphics.drawable.Drawable;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -8,6 +10,7 @@ import com.lps2ima.dfr.cybergame.MainActivity;
 import com.lps2ima.dfr.cybergame.Slide;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /**
  * Created by Dorian on 14/12/2017.
@@ -15,9 +18,8 @@ import java.util.Arrays;
 
 public class ChoixMultiples extends Slide {
     private String[] reponses;
-    private Integer[] bonnes_reponses;
+    private int[] bonnes_reponses;
     private CheckBox[] boxes;
-    private int score_bon;
     private int score_mauvais;
     private int image;
 
@@ -31,15 +33,13 @@ public class ChoixMultiples extends Slide {
      * @param score_bon       Nombre de points que la slide rapporte pour chaque bonne réponse
      * @param score_mauvais   Nombre de points que la slide retire en cas de mauvaise réponse
      */
-    public ChoixMultiples(String texte, int image, String[] reponses, Integer[] bonnes_reponses, int score_bon, int score_mauvais) {
-        super(texte);
+    public ChoixMultiples(String texte, int image, String[] reponses, int[] bonnes_reponses, int score_bon, int score_mauvais) {
+        super(texte, 0, score_bon);
         this.image = image;
         this.reponses = reponses;
         this.bonnes_reponses = bonnes_reponses;
         this.boxes = new CheckBox[reponses.length];
-        this.score_bon = score_bon;
         this.score_mauvais = score_mauvais;
-        this.score = score_bon * bonnes_reponses.length;
     }
 
     @Override
@@ -54,19 +54,23 @@ public class ChoixMultiples extends Slide {
         
         // On ajoute les checkboxes
         for(int i=0; i<this.boxes.length; i++){
-            boxes[i] = Slide.creerCaseCocher(activite, reponses[i]);
-            if(Arrays.asList(this.bonnes_reponses).contains(i+1))
-                boxes[i].setContentDescription("valide");
+            boxes[i] = new CheckBox(activite);
+            boxes[i].setText(reponses[i]);
+            boxes[i].setChecked(false);
             layout.addView(boxes[i]);
-            this.reponses_view.add(boxes[i]);
         }
 
         // On ajoute le bouton valider
-        layout.addView(Slide.creerBouton(activite, "Valider", 1));
+        layout.addView(this.creerBouton(activite, "Valider", 1));
     }
 
     @Override
-    public int choixReponse(int numero_bouton, MainActivity activite) {
+    public boolean isBonneReponse(int numero_bouton){
+        return true;
+    }
+
+    @Override
+    public int getScore() {
         int pts = 0;
 
         // Selon les réponses données par l'utilisateur, on calcul le nombre de points
@@ -74,8 +78,8 @@ public class ChoixMultiples extends Slide {
             // S'il est coché
             if(this.boxes[i].isChecked()){
                 // Si c'est bon, on gagne 1 point
-                if(Arrays.asList(this.bonnes_reponses).contains(i+1))
-                    pts += this.score_bon;
+                if(Arrays.asList(this.reponses).contains(""+(i+1)))
+                    pts += super.getScore();
                 else
                     pts -= this.score_mauvais;
             }

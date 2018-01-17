@@ -1,10 +1,13 @@
 package com.lps2ima.dfr.cybergame.Slides;
 
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
 import com.lps2ima.dfr.cybergame.MainActivity;
+import com.lps2ima.dfr.cybergame.R;
 import com.lps2ima.dfr.cybergame.Slide;
 
 /**
@@ -21,17 +24,17 @@ public class Titre extends Slide {
      * @param noms Noms des catégories possibles
      */
     public Titre(String[] noms) {
-        super("Bienvenue, choisissez une catégorie");
+        super("Bienvenue, choisissez une catégorie", 0, 0);
         this.noms = noms;
     }
 
     @Override
-    public int choixReponse(int numero_bouton, MainActivity activity) {
-        return 0;
-    }
-
-    @Override
     public void afficher(LinearLayout layout, MainActivity activity) {
+        // On affiche l'image
+        ImageView img = new ImageView(activity);
+        img.setImageResource(R.drawable.icone);
+        layout.addView(img);
+
         // On affiche la liste des jeux
         for(int i=0; i<this.noms.length; i++)
             layout.addView(this.creerBouton(activity, this.noms[i], i+1));

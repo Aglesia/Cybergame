@@ -1,9 +1,13 @@
 package com.lps2ima.dfr.cybergame.Slides;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,6 +56,12 @@ public class TitreImage extends Titre {
         s = new Space(activity);
         s.setMinimumHeight(128);
         layout.addView(s);
+
+        // On affiche l'image
+        ImageView img = new ImageView(activity);
+        img.setImageResource(R.drawable.icone);
+        img.setAdjustViewBounds(true);
+        layout.addView(img);
 
         s = new Space(activity);
         s.setMinimumHeight(256);

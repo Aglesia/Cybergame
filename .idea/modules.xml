@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:\Programmation\PROJETS\Cybergame\CyberGame.iml" filepath="D:\Programmation\PROJETS\Cybergame\CyberGame.iml" />
       <module fileurl="file://$PROJECT_DIR$/Cybergame.iml" filepath="$PROJECT_DIR$/Cybergame.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\Programmation\PROJETS\Cybergame\app\app.iml" filepath="D:\Programmation\PROJETS\Cybergame\app\app.iml" />
     </modules>
   </component>
 </project>

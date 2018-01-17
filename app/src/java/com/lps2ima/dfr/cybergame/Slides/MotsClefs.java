@@ -1,13 +1,12 @@
 package com.lps2ima.dfr.cybergame.Slides;
 
+import android.graphics.drawable.Drawable;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.lps2ima.dfr.cybergame.MainActivity;
 import com.lps2ima.dfr.cybergame.Slide;
-
-import java.util.Arrays;
 
 /**
  * Created by Dorian on 14/12/2017.
@@ -32,10 +31,9 @@ public class MotsClefs extends Slide {
      * @param score             Nombre de points que la slide rapporte en cas de bonne réponse
      */
     public MotsClefs(String texte, int image, String[] bonnes_reponses, int score) {
-        super(texte);
+        super(texte, 0, score);
         this.image = image;
         this.bonnes_reponses = bonnes_reponses;
-        this.score = score;
     }
 
     @Override
@@ -51,21 +49,10 @@ public class MotsClefs extends Slide {
         // On affiche la zone de rendu
         this.zone_rendu = new EditText(activite);
         layout.addView(this.zone_rendu);
-        this.reponses_view.add(this.zone_rendu);
-
-        // On ajoute le bouton valider
-        layout.addView(Slide.creerBouton(activite, "Valider", 1));
     }
 
     @Override
-    public int choixReponse(int numero_bouton, MainActivity activite) {
-        String t = this.zone_rendu.getText().toString().toUpperCase();
-        int ret = 0;
-
-        for(String motClef : this.bonnes_reponses)
-            if(t.contains(motClef.toUpperCase()))
-                ret = this.score;
-
-        return ret;
+    public boolean isBonneReponse(int numero_bouton) {
+        return false; // TODO : déterminer si la réponse est donnée
     }
 }
